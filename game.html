@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Brain on AI — Work It or Weaken It?</title>
+  <meta name="description" content="Does AI make your brain stronger — or weaken it? Three kinds of AI homework habit. Only one builds a stronger brain. Real scenarios, backed by science.">
+  <meta property="og:title" content="🧠 Your Brain on AI — Work It or Weaken It?">
+  <meta property="og:description" content="Not all AI habits are equal. Some build your brain. Some are harmless. Some quietly weaken it. Can you tell which is which?">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="🧠 Your Brain on AI — Work It or Weaken It?">
+  <meta name="twitter:description" content="Real homework scenarios. Which AI habits build your brain — and which slowly weaken it?">
+  <style>
+    :root {
+      --bg:      #0a0f1a;
+      --surf:    #111827;
+      --surf2:   #1a2235;
+      --border:  rgba(255,255,255,0.07);
+      --text:    #e2e8f0;
+      --muted:   #94a3b8;
+      --work:    #f59e0b;
+      --neutral: #60a5fa;
+      --steal:   #ef4444;
+      --green:   #22c55e;
+      --blue:    #60a5fa;
+      --r:       10px;
+      --rl:      18px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── Screens ── */
+    .screen { display: none; width: 100%; max-width: 540px; padding: 28px 20px 60px; flex-direction: column; align-items: center; }
+    .screen.active { display: flex; }
+
+    /* ═════════════════════════════════════════════ WELCOME */
+    #sw { text-align: center; padding-top: 44px; }
+
+    .welcome-icon { font-size: 5rem; line-height: 1; margin-bottom: 4px; display: block; }
+
+    .game-title {
+      font-size: clamp(2rem, 8vw, 3rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .title-work  { color: var(--work); }
+    .title-skip  { color: #818cf8; }
+    .game-sub-title {
+      font-size: 1.2rem; font-weight: 800;
+      color: var(--muted); letter-spacing: 0.02em;
+      margin-bottom: 8px;
+    }
+
+    .game-strapline {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+    .key-line {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      background: rgba(245,158,11,0.1);
+      border: 1px solid rgba(245,158,11,0.25);
+      border-radius: var(--r);
+      padding: 10px 16px;
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+
+    /* three-category legend */
+    .cat-legend { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 24px; width: 100%; }
+    .cat-item { font-size: 0.78rem; font-weight: 700; padding: 5px 11px; border-radius: 100px; }
+    .cat-work    { background: rgba(245,158,11,0.12); color: var(--work); }
+    .cat-neutral { background: rgba(96,165,250,0.12);  color: var(--neutral); }
+    .cat-steal   { background: rgba(239,68,68,0.12);   color: var(--steal); }
+
+    .who-label { font-size: 0.8rem; color: var(--muted); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.07em; }
+    .aud-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; margin-bottom: 10px; }
+    .aud-btn {
+      background: var(--surf); border: 2px solid var(--border);
+      color: var(--text); border-radius: var(--r);
+      padding: 14px 10px; cursor: pointer;
+      font-size: 0.88rem; font-weight: 600;
+      transition: all 0.15s; text-align: center;
+    }
+    .aud-btn .ai { font-size: 1.7rem; display: block; margin-bottom: 5px; }
+    .aud-sub { font-size: 0.72rem; color: var(--muted); font-weight: 400; display: block; margin-top: 2px; }
+    .aud-btn:hover { border-color: var(--work); }
+    .aud-btn.sel  { border-color: var(--work); background: rgba(245,158,11,0.08); color: var(--work); }
+    .aud-parent { width: 100%; margin-bottom: 20px; }
+
+    .play-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #000;
+      border: none; padding: 18px;
+      font-size: 1.08rem; font-weight: 800;
+      border-radius: var(--r); cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+      margin-bottom: 24px;
+    }
+    .play-btn:hover:not(:disabled) { opacity: 0.9; transform: translateY(-2px); }
+    .play-btn:disabled { opacity: 0.28; cursor: not-allowed; }
+
+    .quick-facts { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; font-size: 0.8rem; color: var(--muted); margin-bottom: 28px; }
+
+    .science-note {
+      background: rgba(96,165,250,0.06);
+      border: 1px solid rgba(96,165,250,0.18);
+      border-radius: var(--r); padding: 14px 16px;
+      font-size: 0.82rem; color: var(--muted); line-height: 1.55;
+    }
+    .science-note strong { color: var(--blue); }
+
+    /* ═════════════════════════════════════════════ GAME */
+    #sg { padding-top: 16px; }
+
+    .workout-tracker {
+      width: 100%;
+      background: var(--surf);
+      border: 1px solid var(--border);
+      border-radius: var(--rl);
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .tracker-icon {
+      font-size: 2.4rem;
+      line-height: 1;
+      flex-shrink: 0;
+      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .tracker-icon.pump    { animation: pump    0.45s ease; }
+    .tracker-icon.deflate { animation: deflate 0.40s ease; }
+    @keyframes pump    { 0%{transform:scale(1)} 40%{transform:scale(1.45)} 70%{transform:scale(0.92)} 100%{transform:scale(1)} }
+    @keyframes deflate { 0%{transform:scale(1)} 35%{transform:scale(0.65)} 65%{transform:scale(1.06)} 100%{transform:scale(1)} }
+
+    .tracker-right { flex: 1; min-width: 0; }
+    .tracker-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin-bottom: 5px; display: flex; justify-content: space-between; align-items: center; }
+    .tracker-reps  { font-size: 0.75rem; font-weight: 700; color: var(--work); }
+    .tracker-track { height: 10px; background: rgba(255,255,255,0.06); border-radius: 5px; overflow: hidden; }
+    .tracker-fill  { height: 100%; border-radius: 5px; background: linear-gradient(90deg, #f59e0b, #fbbf24); transition: width 0.5s cubic-bezier(0.34,1.56,0.64,1); }
+    .tracker-status { font-size: 0.8rem; font-weight: 700; margin-top: 5px; }
+    .ts-working { color: var(--work); }
+    .ts-skipping{ color: var(--steal); }
+    .ts-neutral { color: var(--muted); }
+
+    .prog-row { width: 100%; display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .prog-track { flex: 1; height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; }
+    .prog-fill  { height: 100%; background: linear-gradient(90deg, var(--blue), #a78bfa); border-radius: 2px; transition: width .4s ease; }
+    .prog-label { font-size: 0.75rem; color: var(--muted); white-space: nowrap; }
+
+    /* scenario card */
+    .scenario-card {
+      width: 100%; background: var(--surf);
+      border: 1px solid var(--border); border-radius: var(--rl);
+      padding: 22px 22px 18px; margin-bottom: 16px;
+    }
+    .sc-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+    .sc-num  { font-size: 0.72rem; color: var(--muted); }
+    .sc-tag  { font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .tag-maths   { background: rgba(96,165,250,0.15);  color: #60a5fa; }
+    .tag-english { background: rgba(167,139,250,0.15); color: #a78bfa; }
+    .tag-science { background: rgba(34,197,94,0.15);   color: #22c55e; }
+    .tag-general { background: rgba(245,158,11,0.15);  color: #fbbf24; }
+    .sc-scene { font-size: 0.82rem; color: var(--muted); font-style: italic; margin-bottom: 8px; }
+    .sc-text  { font-size: 1.04rem; font-weight: 500; line-height: 1.65; }
+
+    /* choice buttons — 3 across */
+    .choice-row { width: 100%; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+    .choice-btn {
+      border: 2px solid; border-radius: var(--r);
+      background: transparent; color: var(--text);
+      padding: 13px 6px; font-size: 0.78rem; font-weight: 700;
+      cursor: pointer; transition: all 0.15s;
+      display: flex; flex-direction: column; align-items: center; gap: 5px;
+      line-height: 1.3;
+    }
+    .choice-btn .ci { font-size: 1.5rem; }
+    .cb-work    { border-color: rgba(245,158,11,0.4); background: rgba(245,158,11,0.05); }
+    .cb-work:hover    { background: rgba(245,158,11,0.18); border-color: var(--work); }
+    .cb-neutral { border-color: rgba(96,165,250,0.4);  background: rgba(96,165,250,0.05); }
+    .cb-neutral:hover { background: rgba(96,165,250,0.18); border-color: var(--neutral); }
+    .cb-steal   { border-color: rgba(239,68,68,0.4);   background: rgba(239,68,68,0.05); }
+    .cb-steal:hover   { background: rgba(239,68,68,0.18); border-color: var(--steal); }
+    .choice-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    /* feedback */
+    .feedback {
+      display: none; width: 100%;
+      border-radius: var(--r); padding: 18px;
+      margin-bottom: 14px; animation: slideUp 0.25s ease;
+    }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+    .feedback.show    { display: block; }
+    .feedback.workout { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.28); }
+    .feedback.neutral { background: rgba(96,165,250,0.07);  border: 1px solid rgba(96,165,250,0.22); }
+    .feedback.steal   { background: rgba(239,68,68,0.07);   border: 1px solid rgba(239,68,68,0.22); }
+
+    .fb-verdict-row  { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .fb-icon         { font-size: 1.8rem; }
+    .fb-verdict-text { font-weight: 800; font-size: 1rem; }
+    .fv-work    { color: var(--work); }
+    .fv-neutral { color: var(--neutral); }
+    .fv-steal   { color: var(--steal); }
+
+    .fb-explain { font-size: 0.9rem; line-height: 1.65; opacity: 0.88; margin-bottom: 12px; }
+
+    .fb-science {
+      background: rgba(96,165,250,0.06);
+      border: 1px solid rgba(96,165,250,0.16);
+      border-radius: 8px; padding: 12px 14px;
+      font-size: 0.82rem; line-height: 1.6;
+    }
+    .fb-sci-label {
+      font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.07em; color: var(--blue); margin-bottom: 5px;
+    }
+    .fb-sci-body  { color: var(--muted); }
+    .fb-sci-body strong { color: var(--text); }
+    .fb-sci-cite  { display: inline-block; margin-top: 6px; font-size: 0.74rem; color: rgba(96,165,250,0.65); font-style: italic; }
+
+    .fb-alt {
+      background: rgba(34,197,94,0.07);
+      border: 1px solid rgba(34,197,94,0.22);
+      border-radius: 8px; padding: 12px 14px;
+      margin-top: 10px; font-size: 0.86rem; line-height: 1.6; color: var(--muted);
+    }
+    .fb-alt-label {
+      font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.07em; color: #22c55e; margin-bottom: 5px;
+    }
+
+    .next-btn {
+      width: 100%; background: var(--surf2);
+      border: 1px solid rgba(255,255,255,0.1); color: var(--text);
+      padding: 14px; font-size: 0.95rem; font-weight: 700;
+      border-radius: var(--r); cursor: pointer; transition: background 0.15s;
+    }
+    .next-btn:hover { background: rgba(255,255,255,0.07); }
+
+    /* toast */
+    .toast {
+      position: fixed; top: 14px; left: 50%;
+      transform: translateX(-50%) scale(0.85);
+      border-radius: 100px; padding: 10px 22px;
+      font-weight: 800; font-size: 0.95rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+      z-index: 999; white-space: nowrap;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) scale(1); }
+    .toast-work { background: var(--work); color: #000; }
+
+    /* ═════════════════════════════════════════════ END */
+    #se { text-align: center; padding-top: 36px; }
+    .end-icon  { font-size: 6rem; line-height: 1; margin-bottom: 10px; }
+    .end-title { font-size: 1.9rem; font-weight: 900; margin-bottom: 4px; }
+    .end-sub   { font-size: 1rem; color: var(--muted); margin-bottom: 22px; }
+
+    .end-verdict {
+      width: 100%; border-radius: var(--rl);
+      padding: 20px; margin-bottom: 20px; text-align: left;
+    }
+    .ev-work  { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25); }
+    .ev-skip  { background: rgba(239,68,68,0.07);  border: 1px solid rgba(239,68,68,0.22); }
+    .ev-mixed { background: rgba(96,165,250,0.06);  border: 1px solid rgba(96,165,250,0.18); }
+    .ev-header { font-size: 1.05rem; font-weight: 800; margin-bottom: 6px; }
+    .ev-body   { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+    .ev-body strong { color: var(--text); }
+
+    .stat-row { display: flex; gap: 10px; width: 100%; margin-bottom: 20px; }
+    .stat-tile { flex: 1; background: var(--surf); border: 1px solid var(--border); border-radius: var(--r); padding: 12px 8px; }
+    .st-num    { font-size: 1.7rem; font-weight: 900; }
+    .st-work   .st-num { color: var(--work); }
+    .st-steal  .st-num { color: var(--steal); }
+    .st-streak .st-num { color: var(--green); }
+    .st-label  { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+
+    /* rep dots */
+    .rep-row { width: 100%; display: flex; gap: 4px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; }
+    .rep-dot {
+      width: 28px; height: 28px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center; font-size: 0.88rem;
+    }
+    .rep-correct { background: rgba(245,158,11,0.2); }
+    .rep-wrong   { background: rgba(239,68,68,0.12); }
+
+    /* share */
+    .share-section { width: 100%; margin-bottom: 22px; }
+    .share-heading { font-size: 0.82rem; color: var(--muted); text-align: center; margin-bottom: 10px; }
+    .share-card {
+      background: linear-gradient(135deg, #111827, #0a0f1a);
+      border: 1px solid rgba(245,158,11,0.28);
+      border-radius: var(--rl); padding: 18px; margin-bottom: 12px;
+    }
+    .sc-inner     { text-align: center; }
+    .sc-tag-line  { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--work); margin-bottom: 6px; }
+    .sc-big-icon  { font-size: 2.8rem; line-height: 1; margin-bottom: 4px; }
+    .sc-score-txt { font-size: 1.6rem; font-weight: 900; color: var(--work); margin-bottom: 2px; }
+    .sc-score-sub { font-size: 0.8rem; color: var(--muted); margin-bottom: 10px; }
+    .sc-rep-row   { display: flex; gap: 2px; justify-content: center; margin-bottom: 8px; }
+    .scr-dot      { width: 14px; height: 18px; border-radius: 3px; }
+    .scr-correct  { background: var(--work); opacity: 0.85; }
+    .scr-wrong    { background: #6366f1; opacity: 0.4; }
+    .sc-cta       { font-size: 0.75rem; color: var(--muted); }
+
+    .share-btn-row { display: flex; gap: 8px; }
+    .share-btn {
+      flex: 1; border: 1px solid var(--border); background: var(--surf);
+      color: var(--text); padding: 10px 6px; border-radius: var(--r);
+      font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: background 0.15s;
+      display: flex; align-items: center; justify-content: center; gap: 4px;
+    }
+    .share-btn:hover { background: var(--surf2); }
+    .sb-tw { border-color: rgba(29,155,240,0.3); }
+    .sb-li { border-color: rgba(10,102,194,0.3); }
+    .sb-cp { border-color: rgba(245,158,11,0.3); }
+    .copied { color: var(--green) !important; }
+
+    .end-actions { display: flex; gap: 10px; width: 100%; }
+    .ea-btn { flex: 1; padding: 14px; border-radius: var(--r); font-size: 0.92rem; font-weight: 700; cursor: pointer; border: 1px solid; transition: all 0.15s; }
+    .ea-primary   { background: linear-gradient(135deg, #f59e0b, #d97706); color: #000; border-color: transparent; }
+    .ea-secondary { background: transparent; color: var(--muted); border-color: var(--border); }
+    .ea-secondary:hover { color: var(--text); background: var(--surf); }
+
+    /* ═════════════════════════════════════════════ ABOUT */
+    #sa { padding-top: 32px; }
+    .about-h2   { font-size: 1.4rem; font-weight: 900; margin-bottom: 14px; }
+    .about-body { font-size: 0.88rem; line-height: 1.7; color: var(--muted); }
+    .about-body h3 { color: var(--text); font-size: 0.92rem; margin: 16px 0 5px; font-weight: 800; }
+    .about-body p  { margin-bottom: 10px; }
+    .ref-list    { list-style: none; margin-top: 16px; }
+    .ref-list li { padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 0.8rem; }
+    .ref-list li:last-child { border: none; }
+    .ref-concept { font-weight: 800; color: var(--text); display: block; margin-bottom: 2px; }
+  </style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<!-- ══════════════════════════════════════ WELCOME -->
+<div class="screen active" id="sw">
+  <span class="welcome-icon">🧠</span>
+  <h1 class="game-title">
+    <span class="title-work">Your Brain</span><br>on <span class="title-skip">AI</span>
+  </h1>
+  <p class="game-sub-title">Work It or Weaken It?</p>
+  <p class="game-strapline">Some AI habits give your brain a real workout.<br>Some are harmless. Others quietly steal your chance to learn.</p>
+  <span class="key-line">You can't outsource a workout. 🏋️</span>
+
+  <div class="cat-legend">
+    <span class="cat-item cat-work">💪 Works your brain</span>
+    <span class="cat-item cat-neutral">😐 Not much either way</span>
+    <span class="cat-item cat-steal">🚫 Steals learning</span>
+  </div>
+
+  <p class="who-label">Who's playing?</p>
+  <div class="aud-grid">
+    <button class="aud-btn" data-a="primary" onclick="selectAudience(this)">
+      <span class="ai">🎒</span>
+      <strong>Primary pupil</strong>
+      <span class="aud-sub">age 7–11</span>
+    </button>
+    <button class="aud-btn" data-a="secondary" onclick="selectAudience(this)">
+      <span class="ai">📚</span>
+      <strong>Secondary pupil</strong>
+      <span class="aud-sub">age 11–16</span>
+    </button>
+  </div>
+  <button class="aud-btn aud-parent" data-a="parent" onclick="selectAudience(this)">
+    <span class="ai">👨‍👩‍👧</span>I'm a parent or carer
+  </button>
+
+  <button class="play-btn" id="play-btn" disabled onclick="startGame()">💪 Start the workout →</button>
+
+  <div class="quick-facts">
+    <span>🃏 age-matched scenarios</span>
+    <span>🔬 backed by science</span>
+    <span>⏱ ~3 minutes</span>
+  </div>
+
+  <div class="science-note">
+    <strong>The science in one sentence:</strong> when you struggle through problems and retrieve answers yourself, you wire faster, stronger neural connections. When AI does the thinking for you, the wiring never forms — even if the answer on the page looks identical.
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ GAME -->
+<div class="screen" id="sg">
+
+  <div class="workout-tracker">
+    <div class="tracker-icon" id="tracker-icon">🏋️</div>
+    <div class="tracker-right">
+      <div class="tracker-label">
+        Brain workout intensity
+        <span class="tracker-reps" id="tracker-reps">0 reps</span>
+      </div>
+      <div class="tracker-track">
+        <div class="tracker-fill" id="tracker-fill" style="width:0%"></div>
+      </div>
+      <div class="tracker-status" id="tracker-status">
+        <span class="ts-neutral">First rep coming up…</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="prog-row">
+    <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+    <span class="prog-label" id="prog-label">1 / ?</span>
+  </div>
+
+  <div class="scenario-card" id="scenario-card"><!-- injected --></div>
+
+  <div class="feedback" id="feedback">
+    <div class="fb-verdict-row">
+      <span class="fb-icon" id="fb-icon"></span>
+      <span class="fb-verdict-text" id="fb-verdict"></span>
+    </div>
+    <p class="fb-explain" id="fb-explain"></p>
+    <div class="fb-science">
+      <div class="fb-sci-label">🔬 The science says…</div>
+      <div class="fb-sci-body" id="fb-sci"></div>
+    </div>
+    <div class="fb-alt" id="fb-alt" style="display:none">
+      <div class="fb-alt-label">💡 Try this instead</div>
+      <div id="fb-alt-body"></div>
+    </div>
+  </div>
+
+  <div class="choice-row" id="choice-row">
+    <button class="choice-btn cb-work" onclick="answer('workout')">
+      <span class="ci">💪</span>
+      <span>Works your<br>brain</span>
+    </button>
+    <button class="choice-btn cb-neutral" onclick="answer('neutral')">
+      <span class="ci">😐</span>
+      <span>Not much<br>either way</span>
+    </button>
+    <button class="choice-btn cb-steal" onclick="answer('steal')">
+      <span class="ci">🚫</span>
+      <span>Steals<br>learning</span>
+    </button>
+  </div>
+
+  <button class="next-btn" id="next-btn" style="display:none" onclick="nextCard()">Next →</button>
+</div>
+
+<!-- ══════════════════════════════════════ END -->
+<div class="screen" id="se">
+  <div class="end-icon" id="end-icon">💪</div>
+  <h2 class="end-title" id="end-title">Workout complete!</h2>
+  <p class="end-sub" id="end-sub"></p>
+
+  <div class="end-verdict" id="end-verdict">
+    <div class="ev-header" id="ev-header"></div>
+    <div class="ev-body"   id="ev-body"></div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-tile st-work">
+      <div class="st-num" id="st-workouts">0</div>
+      <div class="st-label">Workouts spotted 💪</div>
+    </div>
+    <div class="stat-tile st-steal">
+      <div class="st-num" id="st-steals">0</div>
+      <div class="st-label">Steals spotted 🚫</div>
+    </div>
+    <div class="stat-tile st-streak">
+      <div class="st-num" id="st-streak">0</div>
+      <div class="st-label">Best streak 🔥</div>
+    </div>
+  </div>
+
+  <div class="rep-row" id="rep-row"></div>
+
+  <div class="share-section">
+    <p class="share-heading">Challenge a friend to beat your score 👇</p>
+    <div class="share-card">
+      <div class="sc-inner">
+        <div class="sc-tag-line">🧠 Your Brain on AI</div>
+        <div class="sc-big-icon" id="sc-icon">💪</div>
+        <div class="sc-score-txt" id="sc-score"></div>
+        <div class="sc-score-sub" id="sc-sub"></div>
+        <div class="sc-rep-row" id="sc-rep-row"></div>
+        <div class="sc-cta">Play free → <strong>workitorskipit.game</strong></div>
+      </div>
+    </div>
+    <div class="share-btn-row">
+      <button class="share-btn sb-tw" onclick="shareTwitter()">𝕏 Post</button>
+      <button class="share-btn sb-li" onclick="shareLinkedIn()">in Share</button>
+      <button class="share-btn sb-cp" id="copy-btn" onclick="copyLink()">🔗 Copy</button>
+    </div>
+  </div>
+
+  <div class="end-actions">
+    <button class="ea-btn ea-primary"   onclick="restartGame()">Play again 🔄</button>
+    <button class="ea-btn ea-secondary" onclick="showAbout()">The science</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ ABOUT -->
+<div class="screen" id="sa">
+  <h2 class="about-h2">The science behind the game</h2>
+  <div class="about-body">
+    <p>Every scenario in this game is grounded in decades of research on how humans learn. The core insight: <strong style="color:var(--text)">mental effort is not a bug in learning — it's the mechanism.</strong> The game uses three categories: AI habits that genuinely build skill (💪), habits that are largely neutral (😐), and habits that quietly steal your chance to develop (🚫).</p>
+
+    <h3>🔁 Retrieval Practice (Testing Effect)</h3>
+    <p>Retrieving information from memory strengthens the memory trace far more than re-reading the same material. Students who test themselves remember up to 50% more after a week than students who restudy. This is why generating your own answers — even wrong ones — matters so much.</p>
+
+    <h3>😤 Desirable Difficulties</h3>
+    <p>Certain kinds of difficulty during learning — struggling to recall, working through problems without hints, spacing out practice — lead to better long-term retention even though they feel harder in the moment. Easy is not the same as learned.</p>
+
+    <h3>⚡ The Generation Effect</h3>
+    <p>Generating an answer yourself before seeing the right one creates a significantly stronger memory than reading the correct answer directly. Your brain has to work harder to update a wrong answer — and that effort is precisely what builds the memory.</p>
+
+    <h3>🏋️ Deliberate Practice and Neural Wiring</h3>
+    <p>Practising skills with focus and effort literally changes the brain's physical structure — myelinating neural pathways and strengthening synaptic connections. Outsourcing the practice to AI means the wiring never forms.</p>
+
+    <h3>📅 Spaced Practice</h3>
+    <p>Reviewing material spread over time beats cramming. The gap between sessions — the forgetting and re-learning it requires — is what builds durable long-term memory.</p>
+
+    <h3>🏳️ Learned Helplessness</h3>
+    <p>When effort repeatedly feels unnecessary because help always arrives immediately, people gradually lose the belief that their effort makes a difference — and stop trying. AI that removes all struggle on demand can accelerate this pattern.</p>
+
+    <ul class="ref-list">
+      <li><span class="ref-concept">Retrieval Practice / Testing Effect</span>Roediger &amp; Karpicke (2006). "Test-enhanced learning." <em>Psychological Science, 17</em>(3).</li>
+      <li><span class="ref-concept">Desirable Difficulties</span>Bjork &amp; Bjork (2011). "Making things hard on yourself, but in a good way." In Gernsbacher et al., <em>Psychology and the Real World.</em></li>
+      <li><span class="ref-concept">Generation Effect</span>Slamecka &amp; Graf (1978). "The generation effect." <em>Journal of Experimental Psychology: Human Learning &amp; Memory, 4</em>(6).</li>
+      <li><span class="ref-concept">Productive Failure</span>Kapur (2016). "Examining productive failure." <em>Educational Psychologist, 51</em>(2).</li>
+      <li><span class="ref-concept">Deliberate Practice and Myelin</span>Ericsson, Krampe &amp; Tesch-Römer (1993). "The role of deliberate practice." <em>Psychological Review, 100</em>(3). See also: Coyle (2009). <em>The Talent Code.</em></li>
+      <li><span class="ref-concept">Spaced Practice</span>Cepeda et al. (2006). "Distributed practice in verbal recall tasks." <em>Psychological Bulletin, 132</em>(3).</li>
+      <li><span class="ref-concept">Generative Learning</span>Fiorella &amp; Mayer (2016). "Eight ways to promote generative learning." <em>Educational Psychology Review, 28</em>(4).</li>
+      <li><span class="ref-concept">Best overview</span>Dunlosky et al. (2013). "Improving students' learning with effective study techniques." <em>Psychological Science in the Public Interest, 14</em>(1). — freely available online.</li>
+    </ul>
+  </div>
+  <button class="ea-btn ea-primary"   style="width:100%;margin-bottom:10px;margin-top:16px;" onclick="restartGame()">Play the game</button>
+  <button class="ea-btn ea-secondary" style="width:100%;" onclick="goBack()">← Back to results</button>
+</div>
+
+<script>
+// ── Scenarios ─────────────────────────────────────────────────────────────
+// rating: 'workout' | 'neutral' | 'steal'
+// level:  'primary' | 'secondary' | 'all' | 'parent'
+const SCENARIOS = [
+
+  // ── PRIMARY (age 7–11) ───────────────────────────────────────────────────
+  {
+    level: 'primary', rating: 'workout',
+    scene: "Times tables practice",
+    tag: "maths", tagLabel: "Maths",
+    text: "You need to get faster at your 7 times table. You ask AI to test you — it gives you a multiplication question, and you work out the answer in your head before you type it.",
+    explain: "You're doing the brain work! Working out answers in your head is the whole point of practising times tables. The AI is just asking the questions — your brain is doing every single rep.",
+    science: {
+      body: `<strong>Retrieval practice (the testing effect):</strong> trying to pull an answer from memory — rather than reading it — is what builds the memory trace. This is exactly what flashcards do, and it works just as well with AI as the question-giver.`,
+      cite: "Roediger & Karpicke (2006). 'Test-enhanced learning.' Psychological Science, 17(3)."
+    }
+  },
+  {
+    level: 'primary', rating: 'steal',
+    scene: "Reading homework",
+    tag: "english", tagLabel: "English",
+    text: "Your teacher asked you to read two chapters of your book at home. Instead, you ask AI to tell you what happens in those chapters.",
+    explain: "Reading isn't just about finding out what happens. Every page you read helps you learn new words, use your imagination, and get better at reading long books. A summary can't give you any of that — it's like describing a swim to someone instead of letting them get in the pool.",
+    alt: "Read the chapters yourself, then ask AI one question about anything you didn't understand — like 'Why did the character do that?'",
+    science: {
+      body: `<strong>Levels of processing:</strong> skimming summaries creates shallow, short-lived memories. Actually reading — forming your own responses, following the language — builds deep, lasting understanding that a summary cannot replicate.`,
+      cite: "Craik & Lockhart (1972). 'Levels of processing.' Journal of Verbal Learning and Verbal Behavior, 11(6)."
+    }
+  },
+  {
+    level: 'primary', rating: 'steal',
+    scene: "Story writing homework",
+    tag: "english", tagLabel: "English",
+    text: "You have to write a story about a magical adventure. You ask AI to write the whole story for you, then copy it out in your own handwriting.",
+    explain: "Copying someone else's words doesn't give your brain any workout — even if your hand is moving. The real exercise is the thinking: deciding what happens, choosing your words, building the story. You did the handwriting but missed the whole workout.",
+    alt: "Write your own rough version first — even if it's messy. Then ask AI: 'Here's my story — what could I add to make it more exciting?' You stay in charge of the writing.",
+    science: {
+      body: `<strong>The generation effect:</strong> generating your own words — even rough, imperfect ones — creates far stronger learning than copying. The effort of creating is precisely what builds writing skill over time.`,
+      cite: "Slamecka & Graf (1978). 'The generation effect.' Journal of Experimental Psychology: Human Learning & Memory, 4(6)."
+    }
+  },
+  {
+    level: 'primary', rating: 'workout',
+    scene: "Stuck on a maths problem",
+    tag: "maths", tagLabel: "Maths",
+    text: "You're stuck on a tricky word problem. You try it twice and get a different answer each time. You write down both attempts and ask AI: 'I tried two ways and got different answers — can you help me see where I went wrong?'",
+    explain: "Brilliant. You did the hard thinking first — twice! Now you're asking AI to help you see where you went wrong. Struggling with a problem before getting help is when learning actually happens. The AI is just helping you finish the job.",
+    science: {
+      body: `<strong>Productive failure:</strong> students who struggle and fail before being shown the right method learn it more deeply than students given the method first. The failed attempt primes the brain to encode the correct approach far more strongly.`,
+      cite: "Kapur (2016). 'Examining productive failure.' Educational Psychologist, 51(2). — Search: Kapur productive failure"
+    }
+  },
+  {
+    level: 'primary', rating: 'neutral',
+    scene: "Story writing",
+    tag: "english", tagLabel: "English",
+    text: "You're writing a story and you come across a word you can't spell. You ask AI how to spell it so you can carry on with your story.",
+    explain: "This one sits in the middle. Looking up a spelling — like using a dictionary — is fine if you just want to keep writing. But if your teacher wants you to practise spelling, looking it up every time means you miss that practice. It depends what your teacher wants you to work on.",
+    alt: "Have a go at spelling the word yourself first, even if you're not sure. Then check. Trying before looking — even when you get it wrong — is what builds the spelling memory.",
+    science: {
+      body: `<strong>It depends on the goal:</strong> if the task is about writing fluency, a dictionary (or AI) is a reasonable tool — just like spell-check. If the goal is practising spelling itself, looking it up shortcuts the exact thing the homework is designed to build.`,
+      cite: "Bjork & Bjork (2011). 'Making things hard on yourself, but in a good way.' In Gernsbacher et al., Psychology and the Real World."
+    }
+  },
+  {
+    level: 'primary', rating: 'workout',
+    scene: "Remembering facts for science",
+    tag: "science", tagLabel: "Science",
+    text: "You need to remember the eight planets in order. You ask AI to make up a funny sentence where the first letter of each word matches a planet (like 'My Very Excited Mum...'). Then you use that sentence to try to remember the planets yourself.",
+    explain: "Smart move! The AI made a memory trick — but you still have to do the remembering. That's the brain work. The AI is like someone handing you a useful tool; you still have to pick it up and use it.",
+    science: {
+      body: `<strong>Elaborative encoding:</strong> connecting information to something vivid or meaningful — like a funny sentence — makes it far more memorable. You're doing the remembering; the AI just gave you a better hook to hang it on.`,
+      cite: "Craik & Lockhart (1972). 'Levels of processing.' Journal of Verbal Learning and Verbal Behavior, 11(6)."
+    }
+  },
+  {
+    level: 'primary', rating: 'steal',
+    scene: "Science diagram homework",
+    tag: "science", tagLabel: "Science",
+    text: "Your teacher asks you to draw and label a diagram of a plant cell in your science book. You ask AI to generate a labelled image for you, print it out, and stick it in.",
+    explain: "Drawing the diagram IS the learning. When you draw and label each part yourself, your brain has to understand every piece well enough to place it. Printing someone else's image gives you something that looks right — but your brain never had to work to understand it.",
+    alt: "Draw the diagram yourself — even if it's not perfect. When you're done, you can check a real diagram to see if you got the parts right. The drawing is the workout.",
+    science: {
+      body: `<strong>Generative learning:</strong> creating a diagram forces active processing — you have to retrieve and organise what you know. Sticking in a printed image skips that processing entirely, producing much weaker understanding.`,
+      cite: "Fiorella & Mayer (2016). 'Eight ways to promote generative learning.' Educational Psychology Review, 28(4)."
+    }
+  },
+  {
+    level: 'primary', rating: 'workout',
+    scene: "Spelling test revision",
+    tag: "english", tagLabel: "English",
+    text: "You have a spelling test on Friday. Instead of just reading down the word list, you ask AI to test you — it covers each word and you try to spell it yourself before seeing the answer.",
+    explain: "Testing yourself is one of the most powerful study tricks scientists have ever found. Trying to spell each word from memory — even when you get some wrong — builds the memory far more than just reading the list. AI makes a perfect quiz partner.",
+    science: {
+      body: `<strong>The testing effect:</strong> attempting to retrieve information (spelling a word) works far better than reading it passively. The effort of retrieval — even when you get it wrong — is what makes the memory stick.`,
+      cite: "Roediger & Karpicke (2006). 'Test-enhanced learning.' Psychological Science, 17(3)."
+    }
+  },
+
+  // ── SECONDARY (age 11–16) ────────────────────────────────────────────────
+  {
+    level: 'secondary', rating: 'steal',
+    scene: "English essay, due tomorrow",
+    tag: "english", tagLabel: "English",
+    text: "You have an essay to write on <em>Of Mice and Men</em>. You ask AI to write it, tidy it slightly, and submit it as your own work.",
+    explain: "The AI did every cognitive rep: organising the argument, choosing evidence, finding the right sentences. None of that effort went through your brain, so none of it built any capability. You handed in someone else's mental workout and got nothing from it yourself.",
+    alt: "Write a rough plan or first draft yourself — even just bullet points. Then ask AI: 'Here's my argument — what's the weakest part?' You stay in the driver's seat and AI helps you improve your own thinking.",
+    science: {
+      body: `<strong>Learning requires effortful processing.</strong> The struggle of forming an argument, choosing evidence, finding the right sentence — these are the reps that build writing skill. Receiving a finished product skips every one of them.`,
+      cite: "Bjork & Bjork (2011). 'Making things hard on yourself, but in a good way.' — Search: Bjork desirable difficulties learning"
+    }
+  },
+  {
+    level: 'secondary', rating: 'workout',
+    scene: "Maths homework",
+    tag: "maths", tagLabel: "Maths",
+    text: "You work through all your maths questions yourself first — including the ones you find hard and get wrong. Then you ask AI to check every answer and explain each mistake.",
+    explain: "You did the hard reps first. Struggling through problems — even getting them wrong — is exactly where the learning happens. AI then plays the role of a patient tutor, giving you targeted feedback on your specific errors. That combination is very powerful.",
+    science: {
+      body: `<strong>The generation effect:</strong> generating your own answer before seeing the right one creates a significantly stronger memory than being shown the answer directly — even when your generated answer is wrong.`,
+      cite: "Slamecka & Graf (1978). 'The generation effect.' Journal of Experimental Psychology: Human Learning & Memory, 4(6)."
+    }
+  },
+  {
+    level: 'secondary', rating: 'steal',
+    scene: "Maths homework",
+    tag: "maths", tagLabel: "Maths",
+    text: "Every time you get stuck on a maths problem, you immediately ask AI for the answer and copy it into your book.",
+    explain: "The moment of being stuck — when you're trying to work it out — is precisely when learning happens. Replacing that moment with an instant answer means the answer lands in your book but not in your brain. You've done the writing but not the workout.",
+    alt: "Try each problem yourself first. When stuck, ask AI: 'Here's what I've tried so far — what am I missing?' not 'What's the answer?' That way you still do the cognitive work.",
+    science: {
+      body: `<strong>Productive failure:</strong> students who struggle and fail before being shown the correct method outperform those given the method first — even though their initial attempts are wrong.`,
+      cite: "Kapur (2016). 'Examining productive failure.' Educational Psychologist, 51(2). — Search: Kapur productive failure"
+    }
+  },
+  {
+    level: 'secondary', rating: 'workout',
+    scene: "History revision",
+    tag: "general", tagLabel: "Revision",
+    text: "You ask AI to give you 15 practice questions on the causes of World War One. You write all your answers on paper before checking a single one.",
+    explain: "Smart. You're using AI as a question-generator, but every cognitive rep — retrieving the knowledge, forming the sentences, working through what you're uncertain about — is happening in your brain. That's exactly what builds lasting memory.",
+    science: {
+      body: `<strong>Retrieval practice (the testing effect):</strong> students who practised retrieving information remembered 50% more after a week than students who re-read the material. The effort of pulling something from memory is what strengthens the trace.`,
+      cite: "Roediger & Karpicke (2006). 'Test-enhanced learning.' Psychological Science, 17(3). — Search: Roediger Karpicke test enhanced learning"
+    }
+  },
+  {
+    level: 'secondary', rating: 'steal',
+    scene: "Set novel for English",
+    tag: "english", tagLabel: "English",
+    text: "Instead of reading the set novel, you ask AI to summarise each chapter in detail and use those summaries to write your essay.",
+    explain: "Reading a novel does something a summary cannot: it builds vocabulary, the ability to follow complex narrative, stamina with long texts, and the capacity to form your own responses. A summary gives you facts about a book; reading it gives you a mental workout that changes how you think.",
+    alt: "Read the novel, then use AI afterwards to deepen your thinking: 'What does this character's decision in chapter 3 tell us about them?' AI works best as a discussion partner after you've done the reading, not a replacement for it.",
+    science: {
+      body: `<strong>Levels of processing:</strong> shallow processing — skimming summaries — creates weak, short-lived memories. Deep processing — engaging with meaning, forming your own responses — builds durable, transferable understanding.`,
+      cite: "Craik & Lockhart (1972). 'Levels of processing.' Journal of Verbal Learning and Verbal Behavior, 11(6)."
+    }
+  },
+  {
+    level: 'secondary', rating: 'workout',
+    scene: "Biology homework",
+    tag: "science", tagLabel: "Science",
+    text: "You've tried to explain osmosis in your own words but it doesn't feel right. You show AI your attempt and ask: 'What's wrong with my reasoning here?'",
+    explain: "You've done the effort first, and now you're using AI to target exactly where your thinking went wrong. This is AI as a responsive tutor — filling a genuine gap in understanding that you've already worked hard to close yourself.",
+    science: {
+      body: `<strong>Elaborative interrogation:</strong> asking 'what's wrong with this?' forces you to connect new information to what you already know, building a richer mental model. Starting from your own attempt means the AI's feedback targets your actual gap — not a generic explanation.`,
+      cite: "Dunlosky et al. (2013). 'Improving students' learning.' Psychological Science in the Public Interest, 14(1). — freely available online"
+    }
+  },
+  {
+    level: 'secondary', rating: 'steal',
+    scene: "Before attempting homework",
+    tag: "maths", tagLabel: "Maths",
+    text: "Before trying any questions, you paste the whole homework into AI and ask it to show you how to do each one, then follow its steps.",
+    explain: "Following someone else's steps is not the same as working out the steps yourself. You've watched the workout, not done it. The cognitive effort of figuring out the method — including the false starts — is the part that wires the skill into your brain.",
+    alt: "Attempt the first question on your own. When you get stuck on that specific one, ask AI: 'I tried this approach — where did I go wrong?' Then try the next question yourself before asking again.",
+    science: {
+      body: `<strong>The generation effect applies to methods, not just answers:</strong> working out how to approach a problem yourself — even incorrectly at first — produces significantly stronger retention of the method than being shown it directly.`,
+      cite: "Slamecka & Graf (1978). 'The generation effect.' Journal of Experimental Psychology, 4(6). See also: Kapur (2016) on productive failure."
+    }
+  },
+  {
+    level: 'secondary', rating: 'neutral',
+    scene: "Mock exams in 3 weeks",
+    tag: "general", tagLabel: "Revision",
+    text: "You ask AI to build you a 3-week revision plan that spaces out all your subjects, revisiting each one several times rather than doing it all in one block.",
+    explain: "Using AI to set up a spaced revision structure is a smart move — but notice: the AI is planning the gym schedule, not doing the sessions. The benefit depends entirely on whether you actually do the revision. The planning itself neither builds nor steals learning.",
+    alt: "Go a step further: once your plan is set, use AI as a quiz partner in each session. 'Give me 10 questions on the French Revolution — I'll write my answers before you score them.' Now the plan and the sessions both work your brain.",
+    science: {
+      body: `<strong>Spaced practice vs massed practice:</strong> spreading revision over multiple sessions with gaps produces far stronger long-term memory than cramming. Using AI to design this structure is fine — the learning happens in the actual sessions, not the planning.`,
+      cite: "Cepeda et al. (2006). 'Distributed practice in verbal recall tasks.' Psychological Bulletin, 132(3). — Search: spaced practice vs cramming"
+    }
+  },
+  {
+    level: 'secondary', rating: 'steal',
+    scene: "Creative writing homework",
+    tag: "english", tagLabel: "English",
+    text: "You're asked to write a poem about something that matters to you. You ask AI to write 'a really good poem' and hand it in.",
+    explain: "Creative tasks aren't really about the product — they're about developing your voice, your ability to make choices, your relationship with language. An AI poem has no connection to your experience or thinking. You've produced something that looks like the output of a workout, but your brain didn't move.",
+    alt: "Write your own rough draft first — it doesn't need to be good. Then ask AI: 'Here's my poem — what's working well? What could I try differently?' You keep ownership; AI gives feedback on your work.",
+    science: {
+      body: `<strong>The process is the point:</strong> the struggle to find the right word, make a structural choice, express something true — these are acts of deep processing that build lasting capability. Bypassing the process to get the product is like taking a taxi to the top of a hill: you end up in the same place but get none of the fitness.`,
+      cite: "Bjork (1994). 'Memory and metamemory considerations.' In Metcalfe & Shimamura (Eds.), Metacognition. MIT Press."
+    }
+  },
+  {
+    level: 'secondary', rating: 'workout',
+    scene: "Chemistry — stuck on a concept",
+    tag: "science", tagLabel: "Science",
+    text: "You've read the textbook chapter three times but still can't understand how electrolysis works. You ask AI to explain it in three different ways until one makes sense.",
+    explain: "This is AI doing what a patient tutor does: giving you different routes into a concept you've already tried hard to reach yourself. You've done the effort; the AI is helping you unlock it. This is a legitimate cognitive tool — used after the workout, not instead of it.",
+    science: {
+      body: `<strong>Personalised explanation of genuine gaps:</strong> research on 1:1 tutoring shows that immediate, targeted explanations of a specific misconception produce dramatically faster learning. AI can simulate this — but only when you've already done the effortful work of identifying your own confusion.`,
+      cite: "Bloom (1984). 'The 2 sigma problem.' Educational Researcher, 13(6). — Search: Bloom two sigma problem tutoring effect"
+    }
+  },
+  {
+    level: 'secondary', rating: 'workout',
+    scene: "After getting a test back",
+    tag: "general", tagLabel: "Feedback",
+    text: "You get your geography test back with several mistakes. You photograph it and ask AI: 'Look at my wrong answers — what patterns do you see in where I'm going wrong?'",
+    explain: "You're using AI to help you think about your own thinking — one of the highest-impact learning strategies. Understanding why you made the errors and what pattern connects them is far more valuable than just knowing which answers were wrong.",
+    science: {
+      body: `<strong>Metacognition:</strong> students who monitor and evaluate their own understanding learn faster than those who simply study more. Error pattern analysis combined with reflection consistently ranks among the top strategies in large-scale reviews of learning research.`,
+      cite: "Hattie (2009). Visible Learning. Routledge. — meta-analysis of 800+ studies. Metacognitive strategies rank near the top for learning impact."
+    }
+  },
+  {
+    level: 'secondary', rating: 'steal',
+    scene: "RE / Philosophy homework",
+    tag: "general", tagLabel: "Thinking",
+    text: "You're asked to write your own view on a moral dilemma. You ask AI 'what should I think about this?' and use its opinion as your answer.",
+    explain: "Forming your own view — even a confused, uncertain one — is the entire exercise. The struggle to weigh up competing arguments and commit to a position builds the muscles of independent reasoning. Outsourcing your opinion to AI means those muscles never get used.",
+    alt: "Write your own view first — even a few bullet points saying what you think and why. Then ask AI: 'Here's my position — what's the strongest argument against it?' That way you've done the thinking; AI challenges it.",
+    science: {
+      body: `<strong>Epistemic development:</strong> the capacity to form, justify, and revise your own views develops through practice. Homework that asks for your opinion is specifically designed to build this. When AI provides the opinion, the skill the task was designed to build is entirely bypassed.`,
+      cite: "Perry (1970). Forms of Intellectual and Ethical Development in the College Years. Holt, Rinehart & Winston."
+    }
+  },
+  {
+    level: 'secondary', rating: 'neutral',
+    scene: "Finishing a draft",
+    tag: "english", tagLabel: "English",
+    text: "You've written a full essay draft yourself. Before handing it in, you ask AI to check it for spelling mistakes and awkward sentences — but you decide yourself whether to accept each suggestion.",
+    explain: "This sits in the middle. The thinking — the argument, the evidence, the structure — is all yours. Spell-checking tools have existed for decades, and using AI the same way doesn't steal the learning the essay was designed to build. But if you accept every suggestion without thinking, you lose the chance to build your own editing eye.",
+    alt: "Before checking AI's suggestions, read your draft aloud to yourself and spot the problems yourself first. Then compare with what AI flags. That way you're building your editing judgement, not just outsourcing it.",
+    science: {
+      body: `<strong>Editing as a learning process:</strong> the valuable part of proofreading is developing your ear for language and your ability to spot weaknesses. Using AI as a spell-checker is fine; using it as a thinking-replacement is not. The distinction lies in whether you're evaluating its suggestions or just accepting them.`,
+      cite: "Bjork & Bjork (2011). 'Making things hard on yourself, but in a good way.' In Gernsbacher et al., Psychology and the Real World."
+    }
+  },
+  {
+    level: 'secondary', rating: 'neutral',
+    scene: "Starting a research project",
+    tag: "general", tagLabel: "Research",
+    text: "You need to research the causes of climate change for a geography project. You ask AI to suggest five reliable sources to look at, then you read them all yourself and write your own notes.",
+    explain: "Using AI as a search-and-filter tool — then doing your own reading and note-making — is a reasonable split. The learning comes from reading and processing the sources, which you're still doing yourself. The AI helped you find the gym; you're still doing the workout.",
+    alt: "After reading your sources, close them all and write a summary from memory — then go back and check what you missed. That retrieval step (writing from memory first) is what makes the research stick long-term.",
+    science: {
+      body: `<strong>Where the learning lives:</strong> it's in the reading, processing, and note-making — not the source-finding. Using AI to reduce search time while keeping the hard cognitive work for yourself is a legitimate strategy, as long as the actual thinking doesn't follow the sources into AI's hands too.`,
+      cite: "Dunlosky et al. (2013). 'Improving students' learning with effective study techniques.' Psychological Science in the Public Interest, 14(1)."
+    }
+  },
+
+  // ── ALL AUDIENCES ─────────────────────────────────────────────────────────
+  {
+    level: 'all', rating: 'workout',
+    scene: "Vocabulary or fact practice",
+    tag: "general", tagLabel: "Revision",
+    text: "You're learning Spanish vocabulary. You ask AI to quiz you: it gives you the English word, you type the Spanish — and AI makes you try again if you get it wrong.",
+    explain: "AI as an infinitely patient quiz partner — doing exactly what a good flashcard session does. You're generating the answers yourself, getting immediate corrective feedback, and repeating until correct. This is textbook retrieval practice, made easier to do consistently.",
+    science: {
+      body: `<strong>Active retrieval vs passive recognition:</strong> attempting to recall an answer is what builds long-term memory. The AI here acts as a retrieval-practice partner — it doesn't replace the cognitive work; it makes the most effective study method easier to keep up.`,
+      cite: "Roediger & Butler (2011). 'The critical role of retrieval practice in long-term retention.' Trends in Cognitive Sciences, 15(1)."
+    }
+  },
+  {
+    level: 'all', rating: 'steal',
+    scene: "Every homework session",
+    tag: "general", tagLabel: "Habits",
+    text: "Whenever homework starts to feel hard or frustrating, you immediately ask AI to simplify it or do the tricky part for you.",
+    explain: "The feeling of difficulty is often a signal that learning is happening — not that something has gone wrong. Systematically removing all difficulty trains your brain to stop trying when things get hard. Over time, the mental muscles that handle challenge quietly stop developing.",
+    alt: "When something feels hard, try it for five more minutes before asking for help. Then ask: 'Here's where I'm stuck — can you give me a hint rather than the answer?' A hint keeps your brain in the game.",
+    science: {
+      body: `<strong>Learned helplessness:</strong> when effort repeatedly feels unnecessary — because the answer always arrives before you have to work for it — people gradually lose the belief that their effort matters, and stop trying. AI that removes all productive struggle on demand can accelerate this significantly.`,
+      cite: "Seligman & Maier (1967). 'Failure to escape traumatic shock.' Journal of Experimental Psychology, 74(1). See also: Dweck (2006). Mindset. Random House."
+    }
+  },
+
+  // ── PARENT-ONLY ────────────────────────────────────────────────────────────
+  {
+    level: 'parent', rating: 'steal',
+    scene: "English essay",
+    tag: "english", tagLabel: "English",
+    text: "Your child has an essay due on a book they've been studying. They ask AI to write the essay for them, tidy it up a little, and hand it in as their own work. You don't challenge this.",
+    explain: "The essay was designed to build thinking and writing skills — skills your child will need in exams, where AI isn't available. Everything that develops those skills (organising an argument, finding the right words, weighing evidence) was done by AI. The homework is done; the learning isn't.",
+    alt: "Ask your child to write even a rough plan — just bullet points for each paragraph. Then they can ask AI: 'Here's my argument — what am I missing?' The thinking stays with them; AI helps them sharpen it. A useful phrase: 'AI can write the essay, but it can't take the exam.'",
+    science: {
+      body: `<strong>Learning requires effortful processing.</strong> The struggle of forming an argument, choosing evidence, finding the right sentence — these are the reps that build writing skill. Receiving a finished product skips every one of them.`,
+      cite: "Bjork & Bjork (2011). 'Making things hard on yourself, but in a good way.' — Search: Bjork desirable difficulties learning"
+    }
+  },
+  {
+    level: 'parent', rating: 'steal',
+    scene: "Every homework session",
+    tag: "general", tagLabel: "Habits",
+    text: "Your child tells you there's no point doing homework themselves when AI can do it better and faster. They use AI for most written tasks, and you've stopped arguing about it.",
+    explain: "This is a genuinely hard argument to counter — and your child is partly right that AI produces better outputs. But the goal of homework was never the output. It was the process. The skill that gets built during the struggle is what they'll need when AI isn't available — in an exam hall, a job interview, a meeting.",
+    alt: "Try this framing: 'AI can write the essay, but it can't build the skill. And the skill is what you'll actually need.' Or: 'What did you actually learn today?' Most children, when asked directly and without blame, can see the problem themselves — even if they don't change immediately.",
+    science: {
+      body: `<strong>The long game:</strong> students who outsource cognitive effort consistently to AI may produce better work in the short term while building less capability for when it matters. The research on desirable difficulties shows that removing struggle doesn't just fail to help — it actively prevents the learning the struggle was designed to cause.`,
+      cite: "Bjork & Bjork (2011). 'Making things hard on yourself, but in a good way.' In Gernsbacher et al., Psychology and the Real World."
+    }
+  },
+  {
+    level: 'parent', rating: 'steal',
+    scene: "Before the deadline",
+    tag: "general", tagLabel: "Homework",
+    text: "Your child's history project doesn't look good enough. With the deadline tomorrow, you step in — correcting the structure, rewriting weak sections, and polishing it so it reflects well on them.",
+    explain: "The project's educational value lies entirely in the struggle to do it. The confusion, the imperfect sentences, the effort of finding the right words — these are the reps that build knowledge and skill. A polished project your child didn't write is educationally empty for them, however good the intentions.",
+    alt: "Instead of rewriting, point to one weak paragraph and ask: 'What are you trying to say here?' Then: 'How could you say that more clearly?' Questions build thinking. Rewriting the work for them skips the very workout the task was designed to give — and teaches them that their own effort isn't needed.",
+    science: {
+      body: `<strong>Effort and learning are inseparable:</strong> we do not learn by receiving polished outputs; we learn through the effortful process of constructing understanding ourselves. Parents who remove that process to improve the product — however lovingly — are inadvertently skipping the workout the task was designed to provide.`,
+      cite: "Bjork & Bjork (2011). 'Making things hard on yourself, but in a good way.' See also: Kapur (2016). 'Examining productive failure.' Educational Psychologist, 51(2)."
+    }
+  },
+  {
+    level: 'parent', rating: 'workout',
+    scene: "Revision evening",
+    tag: "general", tagLabel: "Revision",
+    text: "Your child has a test tomorrow on the water cycle. You use AI to quickly generate 10 quiz questions on the topic. Then you sit together — you read out the questions, your child answers from memory, no looking at notes.",
+    explain: "This is one of the most powerful revision strategies science knows. Your child is doing the hard work: pulling answers from memory under gentle pressure. AI just made the questions quick to create. You've turned a potentially passive revision session into an active brain workout.",
+    science: {
+      body: `<strong>Retrieval practice (the testing effect):</strong> students who practise retrieving information remember significantly more than students who re-read the same material. The effort of pulling something from memory — not the act of reading it — is what strengthens the memory trace.`,
+      cite: "Roediger & Karpicke (2006). 'Test-enhanced learning.' Psychological Science, 17(3)."
+    }
+  },
+  {
+    level: 'parent', rating: 'workout',
+    scene: "Stuck on homework",
+    tag: "general", tagLabel: "Homework",
+    text: "Your child says they can't do their maths homework and want to give up. Instead of finding the answer, you sit down with them and ask: 'What do you know so far? What have you already tried?' You wait while they think.",
+    explain: "This is exactly the right move. You haven't given them the answer — you've kept them in the productive struggle a little longer, which is when learning happens. Your presence and questions give them the confidence to keep trying. The discomfort of not knowing is a normal and important part of learning, not a sign something has gone wrong.",
+    science: {
+      body: `<strong>Productive struggle:</strong> the moment just before understanding arrives — when effort feels highest — is precisely when new neural connections are forming. Children who always receive help before reaching that moment miss the consolidation it produces.`,
+      cite: "Kapur (2016). 'Examining productive failure.' Educational Psychologist, 51(2). See also: Dweck (2006). Mindset. Random House."
+    }
+  },
+  {
+    level: 'parent', rating: 'steal',
+    scene: "Set book for school",
+    tag: "english", tagLabel: "English",
+    text: "Your child is supposed to read a novel for English but finds it slow going. You suggest using AI to summarise each chapter so they can get through it more quickly.",
+    explain: "You've solved the short-term problem (keeping up with the reading list) and created a longer-term one. Reading a novel builds vocabulary, comprehension stamina, and the ability to engage with complex writing. In an exam, your child will need to write about the book in depth — which is much harder when you haven't actually read it.",
+    alt: "Try reading a chapter together, or to each other, if motivation is the issue. If specific passages are confusing, that's a perfect moment to use AI well: 'We don't understand this bit — can you explain it?' AI as a comprehension tool after reading is very different from AI as a replacement for reading.",
+    science: {
+      body: `<strong>Levels of processing:</strong> shallow processing — skimming summaries — creates weak, short-lived memories. Deep processing — engaging with meaning, forming your own responses, following complex language — builds durable, transferable understanding.`,
+      cite: "Craik & Lockhart (1972). 'Levels of processing.' Journal of Verbal Learning and Verbal Behavior, 11(6)."
+    }
+  },
+  {
+    level: 'parent', rating: 'neutral',
+    scene: "Exam preparation",
+    tag: "general", tagLabel: "Revision",
+    text: "Your child's mock exams start in three weeks. You help them use AI to build a revision timetable that spaces out each subject and revisits each topic more than once.",
+    explain: "A well-structured revision plan is genuinely useful — and using AI to set one up quickly is sensible. But the plan is not the revision. The educational value depends entirely on whether your child actually does the sessions. AI has planned the gym; the workouts are still to come.",
+    alt: "Once the timetable is set, use AI to make the sessions themselves into brain workouts. Sit together and ask AI to generate 10 questions on the first topic — your child answers from memory before seeing the answers. Planning plus active retrieval is a powerful combination.",
+    science: {
+      body: `<strong>Spaced practice:</strong> spreading revision over multiple sessions with gaps produces far stronger long-term memory than cramming the same material in one go. Using AI to design this spacing is fine — the learning happens in the actual sessions, not the planning.`,
+      cite: "Cepeda et al. (2006). 'Distributed practice in verbal recall tasks.' Psychological Bulletin, 132(3)."
+    }
+  },
+  {
+    level: 'parent', rating: 'steal',
+    scene: "Homework frustration",
+    tag: "general", tagLabel: "Habits",
+    text: "Your child gets frustrated with their homework and reaches for AI straight away. You've noticed they never really sit with the difficulty — help arrives before they've tried for more than a minute or two.",
+    explain: "The moment of feeling stuck — before the answer arrives — is when the brain works hardest and learning happens most. Children who never experience this gradually lose confidence that their own effort makes a difference. Over time, the mental muscles that handle challenge quietly stop developing.",
+    alt: "Try the 'five-minute rule' together: when they get stuck, they keep trying for five more minutes before asking for help. Frame the struggle positively: 'That feeling of being stuck means your brain is working. That's a good thing.' If still stuck: 'Ask AI for a hint — not the answer.' Hints keep the brain in the game.",
+    science: {
+      body: `<strong>Learned helplessness:</strong> when effort repeatedly feels unnecessary — because the answer always arrives before they have to work for it — children gradually stop believing their effort makes a difference, and stop trying. AI that removes all productive struggle on demand can accelerate this pattern significantly.`,
+      cite: "Seligman & Maier (1967). 'Failure to escape traumatic shock.' Journal of Experimental Psychology, 74(1). See also: Dweck (2006). Mindset. Random House."
+    }
+  },
+  {
+    level: 'parent', rating: 'workout',
+    scene: "After a test",
+    tag: "general", tagLabel: "Feedback",
+    text: "Your child comes home with a science test they didn't do well in. You suggest photographing the paper and asking AI: 'Look at these wrong answers — what patterns do you see in where this child is going wrong?' Then you go through the analysis together.",
+    explain: "This is AI used brilliantly. Rather than just knowing which answers were wrong, your child is now understanding the pattern behind the mistakes — which makes targeted revision possible. Thinking about your own thinking (metacognition) is one of the most powerful learning strategies research has found.",
+    science: {
+      body: `<strong>Metacognition:</strong> students who monitor and evaluate their own understanding learn faster than those who simply study more. Error pattern analysis combined with reflection consistently ranks among the top strategies in large-scale reviews of learning research.`,
+      cite: "Hattie (2009). Visible Learning. Routledge. — meta-analysis of 800+ studies."
+    }
+  },
+  {
+    level: 'parent', rating: 'steal',
+    scene: "Creative homework",
+    tag: "english", tagLabel: "English",
+    text: "Your child is asked to write a poem about something that matters to them. They're struggling to start, so you sit down together and use AI to generate a poem 'just to show them how it's done'. Your child tweaks a few words and hands it in.",
+    explain: "Creative homework is specifically designed to develop your child's voice — their ability to make choices, use language, and express their own perspective. An AI poem, even with tweaks, has no connection to their thinking or experience. The task has been completed but the skill it was designed to build was bypassed entirely.",
+    alt: "Instead of showing them an AI version, ask: 'What do you actually want to say? Tell me in normal words.' Often, saying it out loud first unlocks the writing. Then: 'Now write down roughly what you just told me.' Starting messy is fine — that's where all creative writing begins.",
+    science: {
+      body: `<strong>The process is the point:</strong> creative tasks aren't designed to produce a polished product. They're designed to develop the capacity to make choices, find your voice, express something true. Bypassing the process to get the product is like taking a taxi to the top of a hill: you end up in the same place but get none of the fitness.`,
+      cite: "Bjork (1994). 'Memory and metamemory considerations in the training of human beings.' In Metcalfe & Shimamura (Eds.), Metacognition. MIT Press."
+    }
+  },
+  {
+    level: 'parent', rating: 'workout',
+    scene: "Vocabulary practice",
+    tag: "general", tagLabel: "Revision",
+    text: "Your child is learning French vocabulary for a test. You ask AI to quiz them — it gives an English word, your child has to give the French word from memory, and AI makes them try again if they get it wrong.",
+    explain: "AI as an infinitely patient quiz partner — doing exactly what a good flashcard session does. Your child is generating the answers themselves, getting immediate feedback, and repeating until correct. You've set up a retrieval-practice session with almost no effort, and it's one of the most effective study methods known.",
+    science: {
+      body: `<strong>Active retrieval vs passive recognition:</strong> attempting to recall an answer (rather than recognising it when seen) is what builds long-term vocabulary. The AI here acts as a retrieval-practice partner — it doesn't replace the cognitive work; it makes the most effective study method easier to sustain.`,
+      cite: "Roediger & Butler (2011). 'The critical role of retrieval practice in long-term retention.' Trends in Cognitive Sciences, 15(1)."
+    }
+  }
+];
+
+// ── State ─────────────────────────────────────────────────────────────────
+let audience = null, deck = [], idx = 0;
+let score = 0, streak = 0, best = 0, answered = false;
+let results = []; // { correct, playerRating, actualRating }
+let intensity = 0;
+
+function selectAudience(btn) {
+  document.querySelectorAll('.aud-btn').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  audience = btn.dataset.a;
+  document.getElementById('play-btn').disabled = false;
+}
+
+function startGame() {
+  let pool;
+  if (audience === 'primary') {
+    pool = SCENARIOS.filter(s => s.level === 'primary' || s.level === 'all');
+  } else if (audience === 'secondary') {
+    pool = SCENARIOS.filter(s => s.level === 'secondary' || s.level === 'all');
+  } else {
+    pool = SCENARIOS.filter(s => s.level === 'parent');
+  }
+  deck = [...pool];
+  shuffle(deck);
+  idx = score = streak = best = intensity = 0;
+  results = []; answered = false;
+  showScreen('sg');
+  renderCard();
+  updateTracker();
+}
+
+function restartGame() {
+  audience = null;
+  document.querySelectorAll('.aud-btn').forEach(b => b.classList.remove('sel'));
+  document.getElementById('play-btn').disabled = true;
+  showScreen('sw');
+}
+
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function renderCard() {
+  if (idx >= deck.length) { showEnd(); return; }
+  const s = deck[idx];
+  const tagMap = { maths: 'tag-maths', english: 'tag-english', science: 'tag-science', general: 'tag-general' };
+
+  document.getElementById('scenario-card').innerHTML = `
+    <div class="sc-meta">
+      <span class="sc-num">Scenario ${idx + 1} of ${deck.length}</span>
+      <span class="sc-tag ${tagMap[s.tag] || 'tag-general'}">${s.tagLabel}</span>
+    </div>
+    <p class="sc-scene">${s.scene}</p>
+    <p class="sc-text">${s.text}</p>`;
+
+  document.getElementById('feedback').className = 'feedback';
+  document.getElementById('choice-row').style.display = 'grid';
+  document.getElementById('next-btn').style.display = 'none';
+  document.querySelectorAll('.choice-btn').forEach(b => b.disabled = false);
+  answered = false;
+
+  document.getElementById('prog-fill').style.width = (idx / deck.length * 100) + '%';
+  document.getElementById('prog-label').textContent = `${idx + 1} / ${deck.length}`;
+}
+
+function answer(playerRating) {
+  if (answered) return;
+  answered = true;
+  document.querySelectorAll('.choice-btn').forEach(b => b.disabled = true);
+
+  const s = deck[idx];
+  const correct = playerRating === s.rating;
+  results.push({ correct, playerRating, actualRating: s.rating });
+
+  if (correct) {
+    score++;
+    streak++;
+    if (streak > best) best = streak;
+    intensity = Math.min(100, intensity + 8);
+    if (streak >= 3) showToast(`🔥 ${streak} in a row!`, 'toast-work');
+  } else {
+    streak = 0;
+    intensity = Math.max(0, intensity - 5);
+  }
+
+  updateTracker(correct ? 'pump' : 'deflate');
+  setTimeout(() => showFeedback(s, correct, playerRating), 150);
+}
+
+const RATING_ICON  = { workout: '💪', neutral: '😐', steal: '🚫' };
+const RATING_COLOR = { workout: 'fv-work', neutral: 'fv-neutral', steal: 'fv-steal' };
+const RATING_LABEL = { workout: 'a real brain workout', neutral: 'somewhere in the middle', steal: 'stealing learning time' };
+
+function showFeedback(s, correct, playerRating) {
+  const fb = document.getElementById('feedback');
+  fb.className = `feedback show ${s.rating}`;
+
+  document.getElementById('fb-icon').textContent = correct ? RATING_ICON[s.rating] : '🤔';
+
+  const vv = document.getElementById('fb-verdict');
+  vv.className = 'fb-verdict-text ' + RATING_COLOR[s.rating];
+  vv.textContent = correct
+    ? `✅ Correct — this is ${RATING_LABEL[s.rating]} ${RATING_ICON[s.rating]}`
+    : `Not quite — this is ${RATING_LABEL[s.rating]} ${RATING_ICON[s.rating]}`;
+
+  document.getElementById('fb-explain').textContent = s.explain;
+  document.getElementById('fb-sci').innerHTML =
+    `${s.science.body}<br><span class="fb-sci-cite">${s.science.cite}</span>`;
+
+  const altBox   = document.getElementById('fb-alt');
+  const altBody  = document.getElementById('fb-alt-body');
+  const altLabel = altBox.querySelector('.fb-alt-label');
+  if (s.alt) {
+    altBody.textContent = s.alt;
+    altLabel.textContent = s.rating === 'neutral' ? '💡 Want to make it a workout?' : '💡 Try this instead';
+    altBox.style.display = 'block';
+  } else {
+    altBox.style.display = 'none';
+  }
+
+  document.getElementById('choice-row').style.display = 'none';
+  const nb = document.getElementById('next-btn');
+  nb.style.display = 'block';
+  nb.textContent = idx + 1 >= deck.length ? 'See your results →' : 'Next →';
+}
+
+function nextCard() { idx++; renderCard(); }
+
+function updateTracker(event) {
+  const fill   = document.getElementById('tracker-fill');
+  const icon   = document.getElementById('tracker-icon');
+  const status = document.getElementById('tracker-status');
+  const repsEl = document.getElementById('tracker-reps');
+
+  fill.style.width = intensity + '%';
+  repsEl.textContent = score + (score === 1 ? ' correct' : ' correct');
+
+  if (event === 'pump') {
+    icon.classList.remove('deflate'); void icon.offsetWidth;
+    icon.classList.add('pump');
+    setTimeout(() => icon.classList.remove('pump'), 500);
+  } else if (event === 'deflate') {
+    icon.classList.remove('pump'); void icon.offsetWidth;
+    icon.classList.add('deflate');
+    setTimeout(() => icon.classList.remove('deflate'), 500);
+  }
+
+  let statusHTML;
+  if      (intensity >= 70) statusHTML = `<span class="ts-working">💪 You're reading these well — keep going!</span>`;
+  else if (intensity >= 45) statusHTML = `<span class="ts-working">Getting into it…</span>`;
+  else if (intensity >= 20) statusHTML = `<span class="ts-neutral">Steady so far</span>`;
+  else if (score > 0)       statusHTML = `<span class="ts-skipping">⚠️ A tricky set so far</span>`;
+  else                      statusHTML = `<span class="ts-neutral">First one coming up…</span>`;
+  status.innerHTML = statusHTML;
+
+  if      (intensity >= 75) icon.textContent = '🔥';
+  else if (intensity >= 45) icon.textContent = '💪';
+  else if (intensity >= 20) icon.textContent = '🏋️';
+  else                      icon.textContent = '😴';
+}
+
+function showToast(msg, cls) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + cls + ' show';
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+function showEnd() {
+  showScreen('se');
+  const total = deck.length;
+  const pct = Math.round(score / total * 100);
+  const workoutsSpotted = results.filter(r => r.correct && r.actualRating === 'workout').length;
+  const stealsSpotted   = results.filter(r => r.correct && r.actualRating === 'steal').length;
+
+  let endIcon, title, sub;
+  if      (intensity >= 70) { endIcon = '🔥'; title = 'On fire!';          sub = `${score}/${total} correct — you can read these situations clearly.`; }
+  else if (intensity >= 45) { endIcon = '💪'; title = 'Good workout!';     sub = `${score}/${total} correct — solid understanding with room to grow.`; }
+  else if (intensity >= 20) { endIcon = '🏋️'; title = 'Getting warmed up'; sub = `${score}/${total} correct — some tricky ones in there.`; }
+  else                      { endIcon = '😴'; title = 'Needs more reps';   sub = `${score}/${total} correct — the science is worth a closer look.`; }
+
+  document.getElementById('end-icon').textContent  = endIcon;
+  document.getElementById('end-title').textContent = title;
+  document.getElementById('end-sub').textContent   = sub;
+  document.getElementById('st-workouts').textContent = workoutsSpotted;
+  document.getElementById('st-steals').textContent   = stealsSpotted;
+  document.getElementById('st-streak').textContent   = best;
+
+  const ev = document.getElementById('end-verdict');
+  const eh = document.getElementById('ev-header');
+  const eb = document.getElementById('ev-body');
+  if (pct >= 80) {
+    ev.className = 'end-verdict ev-work';
+    eh.textContent = '💪 You can read the difference between working, neutral, and stealing';
+    eb.innerHTML = `<strong>That matters.</strong> As AI becomes part of everyday homework, the pupils and parents who understand this distinction will make much smarter choices. The key: it's not whether AI is involved — it's whether your brain had to do the reps.`;
+  } else if (pct >= 55) {
+    ev.className = 'end-verdict ev-mixed';
+    eh.textContent = '⚖️ You\'ve got the idea — some scenarios are genuinely tricky';
+    eb.innerHTML = `<strong>${score} of ${total}.</strong> The principle: <em>AI that makes you do the thinking is a workout; AI that does the thinking for you is a steal</em> — even when it feels helpful or saves time. The outcomes over months and years are very different.`;
+  } else {
+    ev.className = 'end-verdict ev-skip';
+    eh.textContent = '🤔 Some of these are harder to judge than they first appear';
+    eb.innerHTML = `<strong>${score} of ${total}.</strong> Worth reading back through the explanations for the ones you got wrong. The research is clear: mental effort is not a bug in learning — it\'s the mechanism. You genuinely cannot outsource a workout.`;
+  }
+
+  document.getElementById('rep-row').innerHTML = results.map(r =>
+    `<div class="rep-dot ${r.correct ? 'rep-correct' : 'rep-wrong'}">${r.correct ? '✅' : '❌'}</div>`
+  ).join('');
+
+  document.getElementById('sc-icon').textContent  = endIcon;
+  document.getElementById('sc-score').textContent = `${score}/${total}`;
+  const subs = ['Can you beat me? 👀', 'Think yours is higher?', 'How many can YOU spot?', 'I dare you to try 💪'];
+  document.getElementById('sc-sub').textContent = subs[Math.floor(Math.random() * subs.length)];
+  document.getElementById('sc-rep-row').innerHTML = results.map(r =>
+    `<div class="scr-dot ${r.correct ? 'scr-correct' : 'scr-wrong'}"></div>`
+  ).join('');
+}
+
+function getShareText() {
+  const total = deck.length;
+  const label = intensity >= 70 ? 'WORKING HARD 💪🔥' : intensity >= 40 ? 'GETTING THERE 💪' : 'NEEDS MORE REPS 😴';
+  const grid  = results.map(r => r.correct ? '🟡' : '🟣').join('');
+  return `${label}\n\nI scored ${score}/${total} on the AI homework game\n\n${grid}\n\nYou can't outsource a workout. Can you beat me?`;
+}
+
+function shareTwitter() {
+  const text = encodeURIComponent(getShareText() + '\n\nhttps://workitorskipit.game');
+  window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank', 'width=550,height=420');
+}
+
+function shareLinkedIn() {
+  const url = encodeURIComponent('https://workitorskipit.game');
+  window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=500');
+}
+
+function copyLink() {
+  const text = getShareText() + '\n\nhttps://workitorskipit.game';
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '🔗 Copy'; btn.classList.remove('copied'); }, 2600);
+  }).catch(() => prompt('Copy this:', text));
+}
+
+function showAbout() { showScreen('sa'); }
+function goBack()    { showScreen('se'); }
+</script>
+</body>
+</html>
